@@ -1,0 +1,1 @@
+A simple tool to help with orienting fa/fq/sam/bam RNAseq files. If your data contains polyA tails but some reads are in reverse complement (i.e., starting with polyT instead of ending with polyA), this script will reverse complement those reads and will print statistics of processed reads to stdout
