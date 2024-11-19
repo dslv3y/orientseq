@@ -2,6 +2,8 @@ import argparse
 import pysam
 from Bio.Seq import Seq
 import csv
+import sys
+import pkg_resources
 
 def parse_arguments():
   parser = argparse.ArgumentParser()
@@ -119,10 +121,11 @@ def print_stats(stats, input_file_name, output_file_name):
   """)
 
 def main():
+  if '--version' in sys.argv or '-v' in sys.argv:
+    version = pkg_resources.get_distribution("orientseq").version
+    print(f"orientseq version: {version}")
+    sys.exit(0)
   args = parse_arguments()
-  if args.version:
-      print("orientseq 0.2.2")
-      return
   fmt_status, fmt = detect_format(args.input)
   fmt = args.format if args.format else fmt
   if fmt_status == 1:
