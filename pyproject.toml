@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "orientseq"
-version = "0.2.0"
+version = "0.2.1"
 description = "Orients fa/fq/sam/bam file: reverse revcomp by finding polyA tails"
 authors = ["Dmitry Solovey <dsolovey@ist.ac.at>"]
 license = "MIT"

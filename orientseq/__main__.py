@@ -103,26 +103,18 @@ def print_stats(stats, input_file_name, output_file_name):
     writer = csv.writer(csv_file)
     for key, value in stats.items():
        writer.writerow([key, value])
-  print(f"""Stats for orienting {input_file_name}:
-  ========================================================
-
-  Normal reads count:           {stats['fwd_cnt']}
-  Normal reads average length:  {stats['fwd_len']/(stats['fwd_cnt'] + 0.001)}
-  Average polyA length:         {stats['polyA_len']/(stats['fwd_cnt'] + 0.001)}
-  ========================================================
-
-  Revcomp reads count:           {stats['revcomp_cnt']}
-  Revcomp reads average length:  {stats['revcomp_len']/(stats['revcomp_cnt'] + 0.001)}
-  Average polyT length:          {stats['polyT_len']/(stats['revcomp_cnt'] + 0.001)}
-  ========================================================
-
-  ambiguous reads count:          {stats['ambiguous_cnt']}
-  ambiguous reads average length: {stats['ambiguous_len']/(stats['ambiguous_cnt'] + 0.001)}
-  Average polyA length:         {stats['ambiguous_polyA_len']/(stats['fwd_cnt'] + 0.001)}
-  Average polyT length:         {stats['ambiguous_polyT_len']/(stats['fwd_cnt'] + 0.001)}
-  ========================================================
-  
-  Saved raw stats to {output_file_name}
+  print(f"""Bam_path: {input_file_name}:
+  Normal_reads_count: {stats['fwd_cnt']}
+  Normal_reads_average_length: {stats['fwd_len']/(stats['fwd_cnt'] + 0.001)}
+  Average_polyA_length: {stats['polyA_len']/(stats['fwd_cnt'] + 0.001)}
+  Revcomp_reads_count: {stats['revcomp_cnt']}
+  Revcomp_reads_average_length: {stats['revcomp_len']/(stats['revcomp_cnt'] + 0.001)}
+  Average_polyT_length: {stats['polyT_len']/(stats['revcomp_cnt'] + 0.001)}
+  Ambiguous_reads_count: {stats['ambiguous_cnt']}
+  Ambiguous_reads_average_length: {stats['ambiguous_len']/(stats['ambiguous_cnt'] + 0.001)}
+  Average_ambiguous_polyA_length: {stats['ambiguous_polyA_len']/(stats['fwd_cnt'] + 0.001)}
+  Average_ambiguous_polyT_length: {stats['ambiguous_polyT_len']/(stats['fwd_cnt'] + 0.001)}  
+  Stats_path: {output_file_name}
   """)
 
 def main():
