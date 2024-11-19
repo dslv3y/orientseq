@@ -5,12 +5,13 @@ import csv
 
 def parse_arguments():
   parser = argparse.ArgumentParser()
-  parser.add_argument('-i', '--input', help='input file to orient', required=True)
-  parser.add_argument('-o', '--output', help='output file to write', required=True)
-  parser.add_argument('-f', '--format', choices=['fq', 'fa', 'sam', 'bam'], help='file format, by default reads the input file extension')
-  parser.add_argument('-t', '--threshold', type=int, default=5, help='maximum possible difference between polyA and polyT to count as ambiguous')
-  parser.add_argument('-a', '--ambiguous', help='separate file to output ambiguous reads, by default are printed to <output_file> with _ambiguous in the read_name')
-  parser.add_argument('-s', '--stats', help='file to output statistics, <sample_name>.orient_stats.csv by default')
+  parser.add_argument('-i', '--input', help='Input file to orient', required=True)
+  parser.add_argument('-o', '--output', help='Output file to write', required=True)
+  parser.add_argument('-f', '--format', choices=['fq', 'fa', 'sam', 'bam'], help='File format, by default reads the input file extension')
+  parser.add_argument('-t', '--threshold', type=int, default=5, help='Maximum possible difference between polyA and polyT to count as ambiguous, default is 5')
+  parser.add_argument('-a', '--ambiguous', help='Separate file to output ambiguous reads, by default are printed to <output_file> with _ambiguous in the read_name')
+  parser.add_argument('-s', '--stats', help='File to output statistics, stdout only by default')
+  parser.add_argument('-v', '--version', help='Print version and quit', action='store_true')
   return parser.parse_args()
 
 def detect_format(file_name):
@@ -103,7 +104,7 @@ def print_stats(stats, input_file_name, output_file_name):
     writer = csv.writer(csv_file)
     for key, value in stats.items():
        writer.writerow([key, value])
-  print(f"""Bam_path: {input_file_name}:
+  print(f"""Input_bam_path: {input_file_name}:
   Normal_reads_count: {stats['fwd_cnt']}
   Normal_reads_average_length: {stats['fwd_len']/(stats['fwd_cnt'] + 0.001)}
   Average_polyA_length: {stats['polyA_len']/(stats['fwd_cnt'] + 0.001)}
@@ -114,11 +115,14 @@ def print_stats(stats, input_file_name, output_file_name):
   Ambiguous_reads_average_length: {stats['ambiguous_len']/(stats['ambiguous_cnt'] + 0.001)}
   Average_ambiguous_polyA_length: {stats['ambiguous_polyA_len']/(stats['fwd_cnt'] + 0.001)}
   Average_ambiguous_polyT_length: {stats['ambiguous_polyT_len']/(stats['fwd_cnt'] + 0.001)}  
-  Stats_path: {output_file_name}
+  Output_stats_path: {output_file_name}
   """)
 
 def main():
   args = parse_arguments()
+  if args.version:
+      print("orientseq 0.2.2")
+      return
   fmt_status, fmt = detect_format(args.input)
   fmt = args.format if args.format else fmt
   if fmt_status == 1:
